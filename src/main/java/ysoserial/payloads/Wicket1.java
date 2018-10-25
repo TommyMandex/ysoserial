@@ -50,6 +50,8 @@ import ysoserial.payloads.util.Reflections;
 @Dependencies({"org.apache.wicket:wicket-util:6.23.0", "org.slf4j:slf4j-api:1.6.4"})
 @Authors({ Authors.JACOBAINES })
 public class Wicket1 implements ReleaseableObjectPayload<DiskFileItem> {
+	
+	//federicodotta - Not applicable
 
     public DiskFileItem getObject(String command, String attackType) throws Exception {
 

@@ -52,6 +52,8 @@ import ysoserial.payloads.util.PayloadRunner;
 @PayloadTest( harness = "ysoserial.payloads.JRMPReverseConnectSMTest")
 @Authors({ Authors.MBECHLER })
 public class JRMPClient extends PayloadRunner implements ObjectPayload<Registry> {
+	
+	// federicodotta - Not applicable
 
     public Registry getObject ( final String command, String attackType) throws Exception {
 

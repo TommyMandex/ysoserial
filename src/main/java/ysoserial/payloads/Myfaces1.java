@@ -43,6 +43,8 @@ import ysoserial.payloads.util.Reflections;
 @PayloadTest(skip="Requires running MyFaces, no direct execution")
 @Authors({ Authors.MBECHLER })
 public class Myfaces1 implements ObjectPayload<Object>, DynamicDependencies {
+	
+	//federicodotta - not supported
 
     public Object getObject ( String command, String attackType) throws Exception {
         return makeExpressionPayload(command);

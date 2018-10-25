@@ -45,6 +45,8 @@ import ysoserial.payloads.util.Reflections;
 @Dependencies()
 @Authors({ Authors.GEBL })
 public class URLDNS implements ObjectPayload<Object> {
+	
+		//federicodotta - Not applicable
 
         public Object getObject(final String url, String attackType) throws Exception {
 

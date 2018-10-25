@@ -37,6 +37,8 @@ import ysoserial.payloads.util.Reflections;
 @PayloadTest( skip = "This test would make you potentially vulnerable")
 @Authors({ Authors.MBECHLER })
 public class JRMPListener extends PayloadRunner implements ObjectPayload<UnicastRemoteObject> {
+	
+	// federicodotta - Not applicable
 
     public UnicastRemoteObject getObject ( final String command, String attackType) throws Exception {
         int jrmpPort = Integer.parseInt(command);

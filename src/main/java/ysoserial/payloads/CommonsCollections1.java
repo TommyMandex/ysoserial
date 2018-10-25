@@ -48,6 +48,8 @@ public class CommonsCollections1 extends PayloadRunner implements ObjectPayload<
 
 	public InvocationHandler getObject(final String command, String attackType) throws Exception {
 		
+		// federicodotta - All supported
+		
 		Transformer[] transformers;
 		
 		// inert chain for setup

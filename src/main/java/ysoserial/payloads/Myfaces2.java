@@ -31,6 +31,8 @@ import ysoserial.payloads.util.PayloadRunner;
 @PayloadTest ( harness = "ysoserial.payloads.MyfacesTest" )
 @Authors({ Authors.MBECHLER })
 public class Myfaces2 implements ObjectPayload<Object>, DynamicDependencies {
+	
+	//federicodotta - not supported
 
     public static String[] getDependencies () {
         return Myfaces1.getDependencies();

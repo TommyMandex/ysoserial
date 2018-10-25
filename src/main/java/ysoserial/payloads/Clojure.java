@@ -27,6 +27,8 @@ import java.util.Map;
 @Dependencies({"org.clojure:clojure:1.8.0"})
 @Authors({ Authors.JACKOFMOSTTRADES })
 public class Clojure extends PayloadRunner implements ObjectPayload<Map<?, ?>> {
+	
+	// federicodotta - only ysoserial global exec supported
 
 	public Map<?, ?> getObject(final String command, String attackType) throws Exception {
 

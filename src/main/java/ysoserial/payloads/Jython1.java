@@ -44,6 +44,8 @@ import ysoserial.payloads.util.PayloadRunner;
 @Dependencies({ "org.python:jython-standalone:2.5.2" })
 @Authors({ Authors.PWNTESTER, Authors.CSCHNEIDER4711 })
 public class Jython1 extends PayloadRunner implements ObjectPayload<PriorityQueue> {
+	
+	//federicodotta - Not supported
 
     public PriorityQueue getObject(String command, String attackType) throws Exception {
 

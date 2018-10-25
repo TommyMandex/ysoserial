@@ -43,6 +43,8 @@ import ysoserial.payloads.util.Reflections;
 @PayloadTest(harness="ysoserial.payloads.FileUploadTest")
 @Authors({ Authors.MBECHLER })
 public class FileUpload1 implements ReleaseableObjectPayload<DiskFileItem> {
+	
+	// federicodotta - not supported
 
     public DiskFileItem getObject ( String command, String attackType) throws Exception {
 

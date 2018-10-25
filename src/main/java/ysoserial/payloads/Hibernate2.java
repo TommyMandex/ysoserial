@@ -44,6 +44,8 @@ import com.sun.rowset.JdbcRowSetImpl;
 @PayloadTest( harness = "ysoserial.payloads.JRMPReverseConnectTest")
 @Authors({ Authors.MBECHLER })
 public class Hibernate2 implements ObjectPayload<Object>, DynamicDependencies {
+	
+	// federicodotta - Not supported
 
     public static String[] getDependencies () {
         return Hibernate1.getDependencies();

