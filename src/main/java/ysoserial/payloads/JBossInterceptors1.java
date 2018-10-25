@@ -32,7 +32,7 @@ import java.util.*;
 @Authors({ Authors.MATTHIASKAISER })
 public class JBossInterceptors1 implements ObjectPayload<Object> {
 
-    public Object getObject(final String command) throws Exception {
+    public Object getObject(final String command, String attackType) throws Exception {
 
         final Object gadget = Gadgets.createTemplatesImpl(command);
 

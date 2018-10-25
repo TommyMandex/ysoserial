@@ -28,7 +28,7 @@ import java.util.Map;
 @Authors({ Authors.JACKOFMOSTTRADES })
 public class Clojure extends PayloadRunner implements ObjectPayload<Map<?, ?>> {
 
-	public Map<?, ?> getObject(final String command) throws Exception {
+	public Map<?, ?> getObject(final String command, String attackType) throws Exception {
 
 //		final String[] execArgs = command.split(" ");
 //		final StringBuilder commandArgs = new StringBuilder();

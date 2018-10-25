@@ -37,7 +37,7 @@ public class Myfaces2 implements ObjectPayload<Object>, DynamicDependencies {
     }
 
 
-    public Object getObject ( String command ) throws Exception {
+    public Object getObject ( String command, String attackType) throws Exception {
         int sep = command.lastIndexOf(':');
         if ( sep < 0 ) {
             throw new IllegalArgumentException("Command format is: <base_url>:<classname>");

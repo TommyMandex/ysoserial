@@ -37,7 +37,7 @@ import java.util.Map;
 @Authors({ Authors.MATTHIASKAISER })
 public class CommonsCollections6 extends PayloadRunner implements ObjectPayload<Serializable> {
 
-    public Serializable getObject(final String command) throws Exception {
+    public Serializable getObject(final String command, String attackType) throws Exception {
 
         final String[] execArgs = new String[] { command };
 

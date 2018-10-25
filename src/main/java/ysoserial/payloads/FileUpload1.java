@@ -44,7 +44,7 @@ import ysoserial.payloads.util.Reflections;
 @Authors({ Authors.MBECHLER })
 public class FileUpload1 implements ReleaseableObjectPayload<DiskFileItem> {
 
-    public DiskFileItem getObject ( String command ) throws Exception {
+    public DiskFileItem getObject ( String command, String attackType) throws Exception {
 
         String[] parts = command.split(";");
 

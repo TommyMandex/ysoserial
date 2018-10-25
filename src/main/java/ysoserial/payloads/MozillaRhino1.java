@@ -23,7 +23,7 @@ import java.lang.reflect.Method;
 @Authors({ Authors.MATTHIASKAISER })
 public class MozillaRhino1 implements ObjectPayload<Object> {
 
-    public Object getObject(final String command) throws Exception {
+    public Object getObject(final String command, String attackType) throws Exception {
 
         Class nativeErrorClass = Class.forName("org.mozilla.javascript.NativeError");
         Constructor nativeErrorConstructor = nativeErrorClass.getDeclaredConstructor();

