@@ -56,6 +56,15 @@ public class JRMPClient extends PayloadRunner implements ObjectPayload<Registry>
 	// federicodotta - Not applicable
 
     public Registry getObject ( final String command, String attackType) throws Exception {
+    	
+		if(!attackType.equals("exec_global")) {
+	    	
+	    	System.err.println("**********************************");
+	    	System.err.println(attackType + " not supported. Defaulting to exec_global");
+	    	System.err.println("**********************************");
+	    	System.err.println();
+	    	
+	    }
 
         String host;
         int port;

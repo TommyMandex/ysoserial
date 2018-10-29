@@ -46,6 +46,16 @@ public class C3P0 implements ObjectPayload<Object> {
 	// federicodotta - only defautlt exec supported
 	
     public Object getObject ( String command, String attackType) throws Exception {
+    	
+    	if(!attackType.equals("exec_global")) {
+	    	
+	    	System.err.println("**********************************");
+	    	System.err.println(attackType + " not supported. Defaulting to exec_global");
+	    	System.err.println("**********************************");
+	    	System.err.println();
+	    	
+	    }
+    	
         int sep = command.lastIndexOf(':');
         if ( sep < 0 ) {
             throw new IllegalArgumentException("Command format is: <base_url>:<classname>");

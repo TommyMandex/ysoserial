@@ -47,6 +47,16 @@ public class Myfaces1 implements ObjectPayload<Object>, DynamicDependencies {
 	//federicodotta - not supported
 
     public Object getObject ( String command, String attackType) throws Exception {
+    	
+		if(!attackType.equals("exec_global")) {
+	    	
+	    	System.err.println("**********************************");
+	    	System.err.println(attackType + " not supported. Defaulting to exec_global");
+	    	System.err.println("**********************************");
+	    	System.err.println();
+	    	
+	    }
+    	
         return makeExpressionPayload(command);
     }
 

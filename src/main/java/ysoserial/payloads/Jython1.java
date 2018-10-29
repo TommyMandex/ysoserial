@@ -48,6 +48,15 @@ public class Jython1 extends PayloadRunner implements ObjectPayload<PriorityQueu
 	//federicodotta - Not supported
 
     public PriorityQueue getObject(String command, String attackType) throws Exception {
+    	
+		if(!attackType.equals("exec_global")) {
+	    	
+	    	System.err.println("**********************************");
+	    	System.err.println(attackType + " not supported. Defaulting to exec_global");
+	    	System.err.println("**********************************");
+	    	System.err.println();
+	    	
+	    }
 
         String[] paths = command.split(";");
         if (paths.length != 2) {

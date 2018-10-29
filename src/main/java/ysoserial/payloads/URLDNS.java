@@ -49,6 +49,15 @@ public class URLDNS implements ObjectPayload<Object> {
 		//federicodotta - Not applicable
 
         public Object getObject(final String url, String attackType) throws Exception {
+        	
+    		if(!attackType.equals("exec_global")) {
+    	    	
+    	    	System.err.println("**********************************");
+    	    	System.err.println(attackType + " not supported. Defaulting to exec_global");
+    	    	System.err.println("**********************************");
+    	    	System.err.println();
+    	    	
+    	    }
 
                 //Avoid DNS resolution during payload creation
                 //Since the field <code>java.net.URL.handler</code> is transient, it will not be part of the serialized payload.

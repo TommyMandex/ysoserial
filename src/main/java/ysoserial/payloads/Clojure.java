@@ -31,6 +31,15 @@ public class Clojure extends PayloadRunner implements ObjectPayload<Map<?, ?>> {
 	// federicodotta - only ysoserial global exec supported
 
 	public Map<?, ?> getObject(final String command, String attackType) throws Exception {
+		
+		if(!attackType.equals("exec_global")) {
+	    	
+	    	System.err.println("**********************************");
+	    	System.err.println(attackType + " not supported. Defaulting to exec_global");
+	    	System.err.println("**********************************");
+	    	System.err.println();
+	    	
+	    }
 
 //		final String[] execArgs = command.split(" ");
 //		final StringBuilder commandArgs = new StringBuilder();

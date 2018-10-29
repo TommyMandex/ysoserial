@@ -47,6 +47,15 @@ public class FileUpload1 implements ReleaseableObjectPayload<DiskFileItem> {
 	// federicodotta - not supported
 
     public DiskFileItem getObject ( String command, String attackType) throws Exception {
+    	
+    	if(!attackType.equals("exec_global")) {
+	    	
+	    	System.err.println("**********************************");
+	    	System.err.println(attackType + " not supported. Defaulting to exec_global");
+	    	System.err.println("**********************************");
+	    	System.err.println();
+	    	
+	    }
 
         String[] parts = command.split(";");
 

