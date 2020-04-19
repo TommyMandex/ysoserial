@@ -1,9 +1,9 @@
-package ysoserial.payloads;
+package ysoserial.test.payloads;
 
 import org.junit.Assert;
-import ysoserial.CustomTest;
-import ysoserial.util.Files;
-import ysoserial.util.OS;
+import ysoserial.test.CustomTest;
+import ysoserial.test.util.Files;
+import ysoserial.test.util.OS;
 
 import java.io.File;
 import java.util.UUID;
@@ -16,7 +16,6 @@ public class CommandExecTest implements CustomTest {
     @Override
     public void run(Callable<Object> payload) throws Exception {
         Assert.assertFalse("test file should not exist", testFile.exists());
-        Exception err;
         try {
             payload.call();
         } catch (Exception e) {

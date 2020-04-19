@@ -14,6 +14,7 @@ import org.apache.commons.io.output.ThresholdingOutputStream;
 import ysoserial.payloads.annotation.Authors;
 import ysoserial.payloads.annotation.Dependencies;
 import ysoserial.payloads.annotation.PayloadTest;
+import ysoserial.payloads.util.JavaVersion;
 import ysoserial.payloads.util.PayloadRunner;
 import ysoserial.payloads.util.Reflections;
 
@@ -40,9 +41,10 @@ import ysoserial.payloads.util.Reflections;
     "commons-fileupload:commons-fileupload:1.3.1",
     "commons-io:commons-io:2.4"
 } )
-@PayloadTest(harness="ysoserial.payloads.FileUploadTest")
+@PayloadTest(harness="ysoserial.test.payloads.FileUploadTest", precondition = "isApplicableJavaVersion", flaky = "possible race condition")
 @Authors({ Authors.MBECHLER })
 public class FileUpload1 implements ReleaseableObjectPayload<DiskFileItem> {
+<<<<<<< HEAD
 	
 	// federicodotta - not supported
 
@@ -56,6 +58,13 @@ public class FileUpload1 implements ReleaseableObjectPayload<DiskFileItem> {
 	    	System.err.println();
 	    	
 	    }
+=======
+    public static boolean isApplicableJavaVersion() {
+        return JavaVersion.isAtLeast(7);
+    }
+
+    public DiskFileItem getObject ( String command ) throws Exception {
+>>>>>>> frohoff/master
 
         String[] parts = command.split(";");
 

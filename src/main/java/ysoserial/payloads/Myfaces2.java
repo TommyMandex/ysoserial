@@ -4,6 +4,7 @@ package ysoserial.payloads;
 
 import ysoserial.payloads.annotation.Authors;
 import ysoserial.payloads.annotation.PayloadTest;
+import ysoserial.payloads.util.JavaVersion;
 import ysoserial.payloads.util.PayloadRunner;
 
 
@@ -28,11 +29,17 @@ import ysoserial.payloads.util.PayloadRunner;
  *
  * @author mbechler
  */
-@PayloadTest ( harness = "ysoserial.payloads.MyfacesTest" )
+@PayloadTest(harness="ysoserial.test.payloads.MyfacesTest", precondition = "isApplicableJavaVersion")
 @Authors({ Authors.MBECHLER })
 public class Myfaces2 implements ObjectPayload<Object>, DynamicDependencies {
+<<<<<<< HEAD
 	
 	//federicodotta - not supported
+=======
+    public static boolean isApplicableJavaVersion() {
+        return JavaVersion.isAtLeast(7);
+    }
+>>>>>>> frohoff/master
 
     public static String[] getDependencies () {
         return Myfaces1.getDependencies();

