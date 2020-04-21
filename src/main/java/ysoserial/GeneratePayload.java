@@ -121,7 +121,7 @@ public class GeneratePayload {
         }
         
         System.err.println("");
-        System.err.println("  Available payload types:");
+        System.err.println("  Available attack types:");
 		System.err.println("     exec_global");
 		System.err.println("     exec_win");
 		System.err.println("     exec_unix");
