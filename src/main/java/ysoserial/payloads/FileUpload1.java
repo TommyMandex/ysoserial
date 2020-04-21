@@ -44,27 +44,23 @@ import ysoserial.payloads.util.Reflections;
 @PayloadTest(harness="ysoserial.test.payloads.FileUploadTest", precondition = "isApplicableJavaVersion", flaky = "possible race condition")
 @Authors({ Authors.MBECHLER })
 public class FileUpload1 implements ReleaseableObjectPayload<DiskFileItem> {
-<<<<<<< HEAD
 	
 	// federicodotta - not supported
+
+	public static boolean isApplicableJavaVersion() {
+	    return JavaVersion.isAtLeast(7);
+	}
 
     public DiskFileItem getObject ( String command, String attackType) throws Exception {
     	
     	if(!attackType.equals("exec_global")) {
 	    	
 	    	System.err.println("**********************************");
-	    	System.err.println(attackType + " not supported. Defaulting to exec_global");
+	    	System.err.println(attackType + " not supported. Defaulting to ysoserial default");
 	    	System.err.println("**********************************");
 	    	System.err.println();
 	    	
 	    }
-=======
-    public static boolean isApplicableJavaVersion() {
-        return JavaVersion.isAtLeast(7);
-    }
-
-    public DiskFileItem getObject ( String command ) throws Exception {
->>>>>>> frohoff/master
 
         String[] parts = command.split(";");
 

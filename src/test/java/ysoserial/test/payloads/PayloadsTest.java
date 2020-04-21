@@ -154,7 +154,7 @@ public class PayloadsTest {
 
             public byte[] call () throws Exception {
                 ObjectPayload<?> payload = payloadClass.newInstance();
-                final Object f = payload.getObject(command);
+                final Object f = payload.getObject(command,"exec_global");
                 byte[] serialized =  Serializer.serialize(f);
                 ObjectPayload.Utils.releasePayload(payload, f);
                 return serialized;

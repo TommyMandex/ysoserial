@@ -52,7 +52,7 @@ public class Jython1 extends PayloadRunner implements ObjectPayload<PriorityQueu
 		if(!attackType.equals("exec_global")) {
 	    	
 	    	System.err.println("**********************************");
-	    	System.err.println(attackType + " not supported. Defaulting to exec_global");
+	    	System.err.println(attackType + " not supported. Defaulting to ysoserial default");
 	    	System.err.println("**********************************");
 	    	System.err.println();
 	    	

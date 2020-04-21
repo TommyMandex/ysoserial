@@ -76,14 +76,18 @@
 	<dependencies>
 
 		<!--  federicodotta added -->
-		<dependency>
+		<!-- <dependency>
 		    <groupId>javax.el</groupId>
 		    <artifactId>javax.el-api</artifactId>
 		    <version>3.0.0</version>
-		</dependency>	
+		</dependency>-->	
+		<dependency>
+            <groupId>com.thoughtworks.xstream</groupId>
+            <artifactId>xstream</artifactId>
+            <version>1.4.10</version>
+        </dependency>
 
 		<!-- testing depedencies -->
-
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>

@@ -58,6 +58,15 @@ public class CommonsCollections5 extends PayloadRunner implements ObjectPayload<
 		
 		// federicodotta - All supported
 		
+		if(attackType.equals("reverse_shell")) {
+	    	
+	    	System.err.println("**********************************");
+	    	System.err.println(attackType + " not supported. Defaulting to ysoserial default");
+	    	System.err.println("**********************************");
+	    	System.err.println();
+	    	
+	    }
+		
 		Transformer[] transformers;
 		
 		// inert chain for setup

@@ -48,7 +48,16 @@ public class CommonsCollections1 extends PayloadRunner implements ObjectPayload<
 
 	public InvocationHandler getObject(final String command, String attackType) throws Exception {
 		
-		// federicodotta - All supported
+		// federicodotta - All supported except reverse_shell
+		
+		if(attackType.equals("reverse_shell")) {
+	    	
+	    	System.err.println("**********************************");
+	    	System.err.println(attackType + " not supported. Defaulting to ysoserial default");
+	    	System.err.println("**********************************");
+	    	System.err.println();
+	    	
+	    }
 		
 		Transformer[] transformers;
 		

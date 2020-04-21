@@ -45,14 +45,12 @@ import com.sun.rowset.JdbcRowSetImpl;
 @PayloadTest(harness="ysoserial.test.payloads.JRMPReverseConnectTest", precondition = "isApplicableJavaVersion")
 @Authors({ Authors.MBECHLER })
 public class Hibernate2 implements ObjectPayload<Object>, DynamicDependencies {
-<<<<<<< HEAD
 	
 	// federicodotta - Not supported
-=======
+
     public static boolean isApplicableJavaVersion() {
         return JavaVersion.isAtLeast(7);
     }
->>>>>>> frohoff/master
 
     public static String[] getDependencies () {
         return Hibernate1.getDependencies();
@@ -63,7 +61,7 @@ public class Hibernate2 implements ObjectPayload<Object>, DynamicDependencies {
 		if(!attackType.equals("exec_global")) {
 	    	
 	    	System.err.println("**********************************");
-	    	System.err.println(attackType + " not supported. Defaulting to exec_global");
+	    	System.err.println(attackType + " not supported. Defaulting to ysoserial default");
 	    	System.err.println("**********************************");
 	    	System.err.println();
 	    	

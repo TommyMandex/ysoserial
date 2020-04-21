@@ -44,15 +44,13 @@ import ysoserial.payloads.util.Reflections;
 @Authors({ Authors.MBECHLER })
 @PayloadTest(precondition = "isApplicableJavaVersion")
 public class Hibernate1 implements ObjectPayload<Object>, DynamicDependencies {
-<<<<<<< HEAD
 	
 	// federicodotta - All supported (templateImpl) only with Hibernate5. Hibernate4 can only call getter.
 	// Add profile hibernate5 to compile with Maven and run ysoserial with -Dhibernate5 for using with Hibernate 5. 
-=======
+
     public static boolean isApplicableJavaVersion() {
         return JavaVersion.isAtLeast(7);
     }
->>>>>>> frohoff/master
 
     public static String[] getDependencies () {
         if ( System.getProperty("hibernate5") != null ) {

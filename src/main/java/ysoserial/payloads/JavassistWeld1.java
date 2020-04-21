@@ -35,14 +35,12 @@ import java.util.*;
     "org.jboss.interceptor:jboss-interceptor-spi:2.0.0.Final", "org.slf4j:slf4j-api:1.7.21" })
 @Authors({ Authors.MATTHIASKAISER })
 public class JavassistWeld1 implements ObjectPayload<Object> {
-<<<<<<< HEAD
 	
 	// federicodotta - All supported (TemplateImpl)
-=======
+
     public static boolean isApplicableJavaVersion() {
         return JavaVersion.isAtLeast(7);
     }
->>>>>>> frohoff/master
 
     public Object getObject(final String command, String attackType) throws Exception {
 

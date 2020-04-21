@@ -6,6 +6,8 @@ import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.util.concurrent.Callable;
 
+import com.thoughtworks.xstream.XStream;
+
 public class Serializer implements Callable<byte[]> {
 	private final Object object;
 	public Serializer(Object object) {
@@ -26,5 +28,11 @@ public class Serializer implements Callable<byte[]> {
 		final ObjectOutputStream objOut = new ObjectOutputStream(out);
 		objOut.writeObject(obj);
 	}
-
+	
+	public static void serializeXstream(final Object obj, final OutputStream out) throws IOException{
+        XStream xstream = new XStream();
+        String serialized = xstream.toXML(obj);
+        out.write(serialized.getBytes());
+    }
+	
 }

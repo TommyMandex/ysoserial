@@ -32,14 +32,12 @@ import ysoserial.payloads.util.PayloadRunner;
 @PayloadTest(harness="ysoserial.test.payloads.MyfacesTest", precondition = "isApplicableJavaVersion")
 @Authors({ Authors.MBECHLER })
 public class Myfaces2 implements ObjectPayload<Object>, DynamicDependencies {
-<<<<<<< HEAD
 	
 	//federicodotta - not supported
-=======
+
     public static boolean isApplicableJavaVersion() {
         return JavaVersion.isAtLeast(7);
     }
->>>>>>> frohoff/master
 
     public static String[] getDependencies () {
         return Myfaces1.getDependencies();
@@ -51,7 +49,7 @@ public class Myfaces2 implements ObjectPayload<Object>, DynamicDependencies {
 		if(!attackType.equals("exec_global")) {
 	    	
 	    	System.err.println("**********************************");
-	    	System.err.println(attackType + " not supported. Defaulting to exec_global");
+	    	System.err.println(attackType + " not supported. Defaulting to ysoserial default");
 	    	System.err.println("**********************************");
 	    	System.err.println();
 	    	
