@@ -13,15 +13,15 @@ A proof-of-concept tool for generating payloads that exploit unsafe Java object 
 
 ![logo](ysoserial.png)
 
-## federicodotta Mod
+## federicodotta fork
 
 This is a fork of the official great ysoserial project with some improvements I added to create payloads for the Burp Suite plugin [Java Deserialization Scanner](https://github.com/federicodotta/Java-Deserialization-Scanner) and more generally to speed-up and improve the detection and the exploitation of Java serialization issues with ysoserial. 
 
-I will not execute a pull requests to the main plugin because some of my changes can't be applied to all the ysoserial plugin, because they require the execution of arbitrary Java code and many plugins execute other tasks (file upload, execution of EL estressions, ...). In these situations, obviously, the modified version can execute the original ysoserial payload (all original features should work correctly). 
+I will not execute a pull requests to the main plugin because some of my changes can't be applied to all the ysoserial plugin, because they require the execution of arbitrary Java code and many plugins execute other tasks (file upload, execution of EL espressions, ...). In these situations, obviously, the modified version can execute the original ysoserial payload (all original features should work correctly). 
 
-I will try to update periodically this fork, in order to maintein it updated with ysoserial codebase. The fork should be fully compatible with tools that require ysoserial because if the arguments I added are not supplied, the tool should default to ysoserial original behaviour.
+I will try to update periodically this fork, in order to maintain it updated with ysoserial codebase. The fork should be fully compatible with tools that require ysoserial because if the arguments I added are not supplied, the tool should default to ysoserial original behavior.
 
-Same ysoserial disclaimer applies here and I don't guarantee at all the absence of bugs in this fork! Use it at your own risk and if you doubt on some behaviours try also with the original ysoserial.
+Same ysoserial disclaimer applies here and I don't guarantee at all the absence of bugs in this fork! Use it at your own risk and if you doubt on some behaviors try also with the original ysoserial. This is a quick-and-dirty modifications and all the "test" features of ysoserial have not been tested! :)
 
 **ysoserial improvements:**
 
@@ -41,16 +41,16 @@ This is the usage of my fork:
 
 java -jar ysoserial-fd-[version].jar [payload] '[command]' **[attack_type] [payload_transformations]**
 
-The two added arguments are optional. Withtout supplying them it default to ysoserial original behaviour.
+The two added arguments are optional. Without supplying them, it default to ysoserial original behaviour.
 
 **Attack types:**
 
-*	exec_global: it is the default mode, the one used by ysoserial. Usually it execute a Java exec with the supplied command, but in the plugins that don't allow code execution (like file upload) this option can be used to execute the default plugin task (like file upload). I could have chosen a better name, I know :) . Code execution is executed with *java.lang.Runtime.exec(command)*. If you are using a payload that supports only this option and not the *exec_win*/*exec_unix* ones, you can transform your commands using this [great online resource by Jackson](http://www.jackson-t.ca/runtime-exec-payloads.html) for better results!
-*	exec_win: ysoserial default execution mode have some limitations in the chars that can be used in the commmand (redirections as an example don't work properly) that could make your commands fail (and usually these issues are blind...). *exec_win* attack type generates a payload that should support all cmd characters on Windows systems. It execute the Java expression *java.lang.Runtime.getRuntime().exec(new String[]{"cmd","/C\",command})*
+*	exec_global: it is the default mode, the one used by ysoserial. Usually it executes a Java exec with the supplied command, but in the plugins that don't allow code execution (like file upload) this option can be used to execute the default plugin task (like file upload). I could have chosen a better name, I know :) . Code execution is executed with *java.lang.Runtime.exec(command)*. If you are using a payload that supports only this option and not the *exec_win*/*exec_unix* ones, you can transform your commands using this [great online resource by Jackson](http://www.jackson-t.ca/runtime-exec-payloads.html) for better results!
+*	exec_win: ysoserial default execution mode have some limitations in the chars that can be used in the command (redirections as an example don't work properly) that could make your commands fail (and usually these issues are blind...). *exec_win* attack type generates a payload that should support all cmd characters on Windows systems. It execute the Java expression *java.lang.Runtime.getRuntime().exec(new String[]{"cmd","/C\",command})*
 *	exec_unix: same for *exec_win* but for Linux/Unix targets: *java.lang.Runtime.getRuntime().exec(new String[]{"/bin/sh","-c",command})*
-*	sleep: this option executes a native Java sleep, that is *synchronous*, differently from a sleep executed through a shell command that usually is *asynchronous* and consequenlty useless for the detection of serialization issues. The option execute the Java expression *java.lang.Thread.sleep(command)*
+*	sleep: this option executes a native Java sleep, that is *synchronous*, differently from a sleep executed through a shell command that usually is *asynchronous* and consequently useless for the detection of serialization issues. The option execute the Java expression *java.lang.Thread.sleep(command)*
 *	dns: this option executes a native Java DNS resolution. The difference between this option and URLDNS payload is that this option is executed exploiting a particular exploit chain: URLDNS says "The endpoint deserialize Java objects but I don't know if it is exploitable", this option says "The endpoint deserialize Java objects and it should be exploitable using this particular chain". The option execute the  Java expression *java.net.InetAddress.getByName(command)*
-*	reverse_shell: this option generate a native Java reverse shell. The command has been created by NickstaDB and is supported only in payloads that use TemplatesImpl
+*	reverse_shell: this option generates a native Java reverse shell. The command has been created by NickstaDB and is supported only in payloads that use TemplatesImpl
 
 **Available transformations:**
 
