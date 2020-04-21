@@ -13,6 +13,58 @@ A proof-of-concept tool for generating payloads that exploit unsafe Java object 
 
 ![logo](ysoserial.png)
 
+## federicodotta Mod
+
+This is a fork of the official great ysoserial project with some improvements I added to create payloads for the Burp Suite plugin [Java Deserialization Scanner](https://github.com/federicodotta/Java-Deserialization-Scanner) and more generally to speed-up and improve the detection and the exploitation of Java serialization issues with ysoserial. 
+
+I will not execute a pull requests to the main plugin because some of my changes can't be applied to all the ysoserial plugin, because they require the execution of arbitrary Java code and many plugins execute other tasks (file upload, execution of EL estressions, ...). In these situations, obviously, the modified version can execute the original ysoserial payload (all original features should work correctly). 
+
+I will try to update periodically this fork, in order to maintein it updated with ysoserial codebase. The fork should be fully compatible with tools that require ysoserial because if the arguments I added are not supplied, the tool should default to ysoserial original behaviour.
+
+Same ysoserial disclaimer applies here and I don't guarantee at all the absence of bugs in this fork! Use it at your own risk and if you doubt on some behaviours try also with the original ysoserial.
+
+**ysoserial improvements:**
+
+*	Generation of serialized objects with different types of payloads (*exec_global, exec_win, exec_unix, sleep, dns, reverse_shell*) that improve the detection and exploitation of the serialization issues. *reverse_shell* has been extracted by *Nicky Bloor* ysoserial [pull request](https://github.com/frohoff/ysoserial/pull/96).
+*	ysoserial output can be directly encoded using one or more transformations (*base64, base64_url_safe, url_encoding, ascii_hex, gzip, zlib*), supplied comma-separated
+*	ysoserial can output XML XStream objects, instead of standard binary ones. The code has been extracted by *Isaac Sears* ysoserial [pull request](https://github.com/frohoff/ysoserial/pull/76)
+
+Check next *Usage* sub-chapter for details.
+
+# Usage
+
+This is ysoserial default usage:
+
+java -jar ysoserial-[version]-all.jar [payload] '[command]'
+
+This is the usage of my fork:
+
+java -jar ysoserial-fd-[version].jar [payload] '[command]' **[attack_type] [payload_transformations]**
+
+The two added arguments are optional. Withtout supplying them it default to ysoserial original behaviour.
+
+**Attack types:**
+
+*	exec_global: it is the default mode, the one used by ysoserial. Usually it execute a Java exec with the supplied command, but in the plugins that don't allow code execution (like file upload) this option can be used to execute the default plugin task (like file upload). I could have chosen a better name, I know :) . Code execution is executed with *java.lang.Runtime.exec(command)*. If you are using a payload that supports only this option and not the *exec_win*/*exec_unix* ones, you can transform your commands using this [great online resource by Jackson](http://www.jackson-t.ca/runtime-exec-payloads.html) for better results!
+*	exec_win: ysoserial default execution mode have some limitations in the chars that can be used in the commmand (redirections as an example don't work properly) that could make your commands fail (and usually these issues are blind...). *exec_win* attack type generates a payload that should support all cmd characters on Windows systems. It execute the Java expression *java.lang.Runtime.getRuntime().exec(new String[]{"cmd","/C\",command})*
+*	exec_unix: same for *exec_win* but for Linux/Unix targets: *java.lang.Runtime.getRuntime().exec(new String[]{"/bin/sh","-c",command})*
+*	sleep: this option executes a native Java sleep, that is *synchronous*, differently from a sleep executed through a shell command that usually is *asynchronous* and consequenlty useless for the detection of serialization issues. The option execute the Java expression *java.lang.Thread.sleep(command)*
+*	dns: this option executes a native Java DNS resolution. The difference between this option and URLDNS payload is that this option is executed exploiting a particular exploit chain: URLDNS says "The endpoint deserialize Java objects but I don't know if it is exploitable", this option says "The endpoint deserialize Java objects and it should be exploitable using this particular chain". The option execute the  Java expression *java.net.InetAddress.getByName(command)*
+*	reverse_shell: this option generate a native Java reverse shell. The command has been created by NickstaDB and is supported only in payloads that use TemplatesImpl
+
+**Available transformations:**
+
+*	xstream (if xstream is chosen other transformations will be discarded)
+*	base64
+*	base64_url_safe
+*	url_encoding
+*	ascii_hex
+*	gzip
+*	zlib
+
+Multiple transformations can be supplied comma-separated. An example is *base64,url_encoding*. If the transformation list includes xstream, the payload will be generated using XStream library and **no other transformations will be applied**.
+
+
 ## Description
 
 Originally released as part of AppSecCali 2015 Talk
