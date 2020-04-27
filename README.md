@@ -17,7 +17,7 @@ A proof-of-concept tool for generating payloads that exploit unsafe Java object 
 
 This is a fork of the official great ysoserial project with some improvements I added to create payloads for the Burp Suite plugin [Java Deserialization Scanner](https://github.com/federicodotta/Java-Deserialization-Scanner) and more generally to speed-up and improve the detection and the exploitation of Java serialization issues with ysoserial. 
 
-I will not execute a pull request to the main plugin because some of my changes can't be applied to all the ysoserial plugin, because they require the execution of arbitrary Java code and many plugins execute other tasks (file upload, execution of EL expressions, ...). In these situations, obviously, the modified version can execute the original ysoserial payload (all original features should work correctly). 
+I will not execute a pull request to the main ysoserial repository because some of my changes can't be applied to all the ysoserial plugins, because they require the execution of arbitrary Java code and many plugins execute other tasks (file upload, execution of EL expressions, ...). In these situations, obviously, the modified version can execute the original ysoserial payload (all original features should work correctly). 
 
 I will try to update periodically this fork, in order to maintain it updated with ysoserial codebase. The fork should be fully compatible with tools that require ysoserial because if the arguments I added are not supplied, the tool should default to ysoserial original behavior.
 
