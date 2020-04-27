@@ -31,7 +31,7 @@ Same ysoserial disclaimer applies here and I don't guarantee at all the absence 
 
 Check next *Usage* sub-chapter for details.
 
-# Usage
+### Usage
 
 This is ysoserial default usage:
 
@@ -64,7 +64,7 @@ The two added arguments are optional. Without supplying them, it default to ysos
 
 Multiple transformations can be supplied comma-separated. An example is *base64,url_encoding*. If the transformation list includes xstream, the payload will be generated using XStream library and **no other transformations will be applied**.
 
-# Examples
+### Examples
 
 // Generate a CommonsCollections1 payload to execute commands on Windows and encode it in base64+URL
 java -jar ysoserial-fd-0.0.6.jar CommonsCollections1 "echo AAA > a.txt" exec_win base64,url_encoding
